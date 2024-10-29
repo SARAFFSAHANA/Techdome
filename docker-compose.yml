@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: "C:\\Users\\jayap\\project\\frontend"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: "C:\\Users\\jayap\\project\\backend"
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: mongodb://database:27017/techdome
+    depends_on:
+      - database
+
+  database:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - db-data:/data/db
+
+volumes:
+  db-data:
